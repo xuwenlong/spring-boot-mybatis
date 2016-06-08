@@ -37,19 +37,13 @@
     <!--mybatis配置适用于spring 的sqlSession 工厂bean,两个参数:数据源，mybatis的xml 文件路径-->
     <bean id="sqlSessionFactoryWrite" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSourceWrite" />
-        <property name="mapperLocations" value="classpath*:com/xuwl/mapper/writemapper/*.xml" />
+        <property name="mapperLocations" value="classpath*:com/xuwl/mapper/writemapper/*/*.xml" />
     </bean>
 
     <!-- 自动扫描 将Mapper接口生成代理注入到Spring中，这里我理解为dao 的层注入 -->
-    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--<property name="basePackage" value="com.xuwl.mapper.writemapper" />-->
-        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
-    <!--</bean>-->
-
-    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.xuwl.mapper.writemapper"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.xuwl.mapper.writemapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryWrite" />
-        <property name="markerInterface" value="tk.mybatis.mapper.common.Mapper"/>
     </bean>
 
     <!-- 配置事务管理器 -->
