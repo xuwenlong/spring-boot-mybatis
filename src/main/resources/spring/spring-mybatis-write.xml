@@ -15,7 +15,7 @@
         >
 
     <!-- 配置数据源 -->
-    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean name="dataSourceWrite" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" primary="true">
         <property name="url" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
@@ -35,9 +35,9 @@
     </bean>
 
     <!--mybatis配置适用于spring 的sqlSession 工厂bean,两个参数:数据源，mybatis的xml 文件路径-->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath*:com/xuwl/mapper/*/*.xml" />
+    <bean id="sqlSessionFactoryWrite" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceWrite" />
+        <property name="mapperLocations" value="classpath*:com/xuwl/mapper/writemapper/*.xml" />
     </bean>
 
     <!-- 自动扫描 将Mapper接口生成代理注入到Spring中，这里我理解为dao 的层注入 -->
@@ -47,21 +47,21 @@
     <!--</bean>-->
 
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.xuwl.mapper"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage" value="com.xuwl.mapper.writemapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryWrite" />
         <property name="markerInterface" value="tk.mybatis.mapper.common.Mapper"/>
     </bean>
 
     <!-- 配置事务管理器 -->
-    <bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+    <bean id="transactionManagerWrite"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceWrite" />
     </bean>
 
     <!-- 注解方式配置事物 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManagerWrite" />
 
     <!-- 配置事务的传播特性 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:advice id="txAdvice" transaction-manager="transactionManagerWrite">
         <tx:attributes>
             <tx:method name="get*" propagation="REQUIRED" read-only="true" />
             <tx:method name="get*" propagation="REQUIRED"  read-only="true"/>

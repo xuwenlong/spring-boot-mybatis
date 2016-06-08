@@ -6,7 +6,7 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/generator" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/spring/spring-i18n.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/spring/spring-mvc.xml" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/spring/spring-mybatis.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/spring/spring-mybatis-read.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/spring/view-velocity.xml" charset="UTF-8" />
   </component>
 </project>
